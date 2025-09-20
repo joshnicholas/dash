@@ -1,2 +1,37 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+body {
+	background-color: #ffd861;
+	color: #000000;
+}
+
+a {
+	color: #ff5a00;
+}
+
+a:visited {
+	color: #ff5a00;
+}
+
+.text-gray-500,
+.text-gray-600,
+.text-gray-900 {
+	color: #000000 !important;
+}
+
+tbody tr {
+	border-top: 1px solid #000000 !important;
+}
+
+tbody tr:not(:first-child) {
+	border-top: 1px solid #000000 !important;
+}
+
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+	border-top: 1px solid #000000 !important;
+}
+
+.divide-gray-200 > * + * {
+	border-top-color: #000000 !important;
+}
