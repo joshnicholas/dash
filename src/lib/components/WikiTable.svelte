@@ -56,11 +56,11 @@
 	{/if}
 
 	{#if standfirst}
-		<p class="text-gray-600 mb-2">{standfirst}</p>
+		<p class="mb-2">{standfirst}</p>
 	{/if}
 
 	{#if filteredData.length > 0}
-		<p class="text-gray-500 text-sm mb-4">
+		<p class="text-xs">
 			Last scraped: {(() => {
 				const parsed = parseDate(filteredData[0].scraped_datetime);
 				return parsed ? formatDateTime(parsed).toLowerCase() : '';
@@ -70,7 +70,7 @@
 
 	{#if loading}
 		<div class="flex justify-center items-center py-8">
-			<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+			<div class="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
 		</div>
 	{:else if error}
 		<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
@@ -78,7 +78,7 @@
 			<span class="block sm:inline">{error}</span>
 		</div>
 	{:else if filteredData.length === 0}
-		<div class="text-center py-8 text-gray-500">
+		<div class="text-center py-8">
 			No data available
 		</div>
 	{:else}
@@ -87,25 +87,25 @@
 				<table class="w-full bg-transparent table-fixed">
 					<thead class="sticky top-0" style="background-color: #ffd861;">
 						<tr>
-							<th class="px-1 py-2 text-left text-xs font-bold text-gray-500 tracking-wider">Page</th>
-							<th class="px-1 py-2 text-left text-xs font-bold text-gray-500 tracking-wider w-20">Views</th>
-							<th class="px-1 py-2 text-left text-xs font-bold text-gray-500 tracking-wider w-12">Rank</th>
+							<th class="px-1 py-2 text-left text-xs font-bold tracking-wider">Page</th>
+							<th class="px-1 py-2 text-left text-xs font-bold tracking-wider w-20">Views</th>
+							<th class="px-1 py-2 text-left text-xs font-bold tracking-wider w-12">Rank</th>
 						</tr>
 					</thead>
 					<tbody class="bg-transparent divide-y divide-black">
 						{#each filteredData as item, index}
 							<tr class="{index % 2 === 1 ? 'bg-yellow-100' : ''}" style="{index % 2 === 1 ? 'background-color: #fce18d;' : ''}">
-								<td class="px-1 py-2 text-sm text-gray-900">
-									{item.Page.replace(/_/g, ' ')}
+								<td class="px-1 py-2 text-sm">
+									{item.Page.replace(/_/g, ' ')} - 
 									<a href="https://en.wikipedia.org/wiki/{item.Page}" target="_blank" rel="noopener noreferrer"
-									   class="text-blue-600 hover:text-blue-800 hover:underline ml-1">
-										(Link)
+										   class="font-bold">
+											Link
 									</a>
 								</td>
-								<td class="px-1 py-2 text-xs text-gray-900 w-20">
+								<td class="px-1 py-2 text-xs w-20">
 									{item.Views?.toLocaleString()}
 								</td>
-								<td class="px-1 py-2 text-xs font-medium text-gray-900 w-12 text-center">
+								<td class="px-1 py-2 text-xs font-medium w-12 text-center">
 									{item.Rank}
 								</td>
 							</tr>

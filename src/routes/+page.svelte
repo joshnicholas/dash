@@ -1,6 +1,22 @@
 <script>
 	import DataTable from '$lib/components/DataTable.svelte';
 	import WikiTable from '$lib/components/WikiTable.svelte';
+	import { onMount } from 'svelte';
+
+	let backToTopVisible = false;
+
+	onMount(() => {
+		const handleScroll = () => {
+			backToTopVisible = window.scrollY > 300;
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
+
+	function scrollToTop() {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 </script>
 
 <div class="container max-w-4xl mx-auto px-4 py-8">
@@ -8,14 +24,14 @@
 
 	<nav class="text-center mb-8">
 		<div class="flex flex-wrap justify-center gap-4">
-			<a href="#google" class="text-blue-600 hover:text-blue-800 hover:underline">Google News</a>
-			<a href="#wikipedia" class="text-blue-600 hover:text-blue-800 hover:underline">Wikipedia</a>
-			<a href="#abc" class="text-blue-600 hover:text-blue-800 hover:underline">ABC News</a>
-			<a href="#newscom" class="text-blue-600 hover:text-blue-800 hover:underline">News.com.au</a>
-			<a href="#age" class="text-blue-600 hover:text-blue-800 hover:underline">Age</a>
-			<a href="#brisbane" class="text-blue-600 hover:text-blue-800 hover:underline">Brisbane Times</a>
-			<a href="#smh" class="text-blue-600 hover:text-blue-800 hover:underline">SMH</a>
-			<a href="#guardian" class="text-blue-600 hover:text-blue-800 hover:underline">Graun</a>
+			<a href="#google" class="font-bold">Google News</a>
+			<a href="#wikipedia" class="font-bold">Wikipedia</a>
+			<a href="#abc" class="font-bold">ABC News</a>
+			<a href="#newscom" class="font-bold">News.com.au</a>
+			<a href="#age" class="font-bold">Age</a>
+			<a href="#brisbane" class="font-bold">Brisbane Times</a>
+			<a href="#smh" class="font-bold">SMH</a>
+			<a href="#guardian" class="font-bold">Graun</a>
 		</div>
 	</nav>
 
@@ -84,3 +100,13 @@
 		<p>Wikipedia updates daily, everything else runs about every hour during the day. All times are Brisbane time.</p>
 	</footer>
 </div>
+
+{#if backToTopVisible}
+	<button
+		on:click={scrollToTop}
+		class="fixed bottom-4 right-4 bg-[#ff5a00] text-white p-3 rounded-full transition-all duration-300 z-50"
+		aria-label="Back to top"
+	>
+		↑
+	</button>
+{/if}
