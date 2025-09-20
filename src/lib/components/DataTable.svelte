@@ -81,7 +81,7 @@
 					</thead>
 					<tbody class="bg-transparent divide-y divide-black">
 						{#each data as item, index}
-							<tr>
+							<tr class="{index % 2 === 1 ? 'bg-yellow-100' : ''}" style="{index % 2 === 1 ? 'background-color: #fce18d;' : ''}">
 								<td class="px-1 py-2 text-sm text-gray-900">
 									{item.Headline}
 									{#if item.Url}
