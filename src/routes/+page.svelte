@@ -1,9 +1,11 @@
 <script>
 	import DataTable from '$lib/components/DataTable.svelte';
 	import WikiTable from '$lib/components/WikiTable.svelte';
+	import SearchBar from '$lib/components/SearchBar.svelte';
 	import { onMount } from 'svelte';
 
 	let backToTopVisible = false;
+	let searchTerm = $state('');
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -35,11 +37,14 @@
 		</div>
 	</nav>
 
+		<SearchBar bind:searchTerm />
+
 	<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 		<div id="google">
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/google_top/latest.json"
 				header="Google News"
+				{searchTerm}
 			/>
 		</div>
 
@@ -48,6 +53,7 @@
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/wiki/latest.json"
 				header="Wikipedia"
 				exclude={["Main_Page", "Special:Search"]}
+				{searchTerm}
 			/>
 		</div>
 
@@ -55,6 +61,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/abc_top/latest.json"
 				header="ABC News"
+				{searchTerm}
 			/>
 		</div>
 
@@ -62,6 +69,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/newscom_top/latest.json"
 				header="News.com.au"
+				{searchTerm}
 			/>
 		</div>
 
@@ -69,6 +77,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/age/latest.json"
 				header="The Age"
+				{searchTerm}
 			/>
 		</div>
 
@@ -76,6 +85,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/brisbane_times/latest.json"
 				header="Brisbane Times"
+				{searchTerm}
 			/>
 		</div>
 
@@ -83,6 +93,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/smh_top/latest.json"
 				header="Sydney Morning Herald"
+				{searchTerm}
 			/>
 		</div>
 
@@ -90,6 +101,7 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/graun_top/latest.json"
 				header="The Guardian"
+				{searchTerm}
 			/>
 		</div>
 
@@ -103,7 +115,7 @@
 
 {#if backToTopVisible}
 	<button
-		on:click={scrollToTop}
+		onclick={scrollToTop}
 		class="fixed bottom-4 right-4 bg-[#ff5a00] text-white p-3 rounded-full transition-all duration-300 z-50"
 		aria-label="Back to top"
 	>

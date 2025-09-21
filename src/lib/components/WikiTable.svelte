@@ -1,7 +1,8 @@
 <script>
 	import { timeParse, timeFormat } from 'd3-time-format';
+	import { fuzzySearch } from '$lib/utils/search.js';
 
-	let { url, header, standfirst, rowLimit = 5, showPub = false, exclude = [] } = $props();
+	let { url, header, standfirst, rowLimit = 5, showPub = false, exclude = [], searchTerm = '' } = $props();
 
 	let data = $state([]);
 	let loading = $state(true);
@@ -24,7 +25,8 @@
 		return false;
 	}
 
-	let filteredData = $derived(data.filter(item => !shouldExclude(item)));
+	let excludedData = $derived(data.filter(item => !shouldExclude(item)));
+	let filteredData = $derived(fuzzySearch(excludedData, searchTerm, 0.5, ['Page']));
 
 	async function fetchData() {
 		try {
@@ -62,7 +64,7 @@
 	{#if filteredData.length > 0}
 		<p class="text-xs">
 			Last scraped: {(() => {
-				const parsed = parseDate(filteredData[0].scraped_datetime);
+				const parsed = parseDate(data[0]?.scraped_datetime);
 				return parsed ? formatDateTime(parsed).toLowerCase() : '';
 			})()}
 		</p>
@@ -79,7 +81,7 @@
 		</div>
 	{:else if filteredData.length === 0}
 		<div class="text-center py-8">
-			No data available
+			{searchTerm ? 'No matching results found' : 'No data available'}
 		</div>
 	{:else}
 		<div class="rounded-lg">

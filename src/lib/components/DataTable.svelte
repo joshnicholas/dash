@@ -1,7 +1,8 @@
 <script>
 	import { timeParse, timeFormat } from 'd3-time-format';
+	import { fuzzySearch } from '$lib/utils/search.js';
 
-	let { url, header, standfirst, rowLimit = 5, showPub = false } = $props();
+	let { url, header, standfirst, rowLimit = 5, showPub = false, searchTerm = '' } = $props();
 
 	let data = $state([]);
 	let loading = $state(true);
@@ -10,6 +11,8 @@
 	const parseDate = timeParse('%Y_%m_%d_%H');
 	const formatTime = timeFormat('%-I%p');
 	const formatDateTime = timeFormat('%-I %p %d/%m/%Y');
+
+	let filteredData = $derived(fuzzySearch(data, searchTerm, 0.5, ['Headline', 'publication']));
 
 	async function fetchData() {
 		try {
@@ -33,6 +36,9 @@
 			fetchData();
 		}
 	});
+	$effect(() => {
+		console.log(header, data)
+	})
 </script>
 
 <div class="w-full" style="margin-bottom: 30px;">
@@ -44,10 +50,10 @@
 		<p class="mb-2">{standfirst}</p>
 	{/if}
 
-	{#if data.length > 0}
+	{#if filteredData.length > 0}
 		<p class="text-xs">
 			Last scraped: {(() => {
-				const parsed = parseDate(data[0].scraped_datetime);
+				const parsed = parseDate(data[0]?.scraped_datetime);
 				return parsed ? formatDateTime(parsed).toLowerCase() : '';
 			})()}
 		</p>
@@ -62,9 +68,9 @@
 			<strong class="font-bold">Error:</strong>
 			<span class="block sm:inline">{error}</span>
 		</div>
-	{:else if data.length === 0}
+	{:else if filteredData.length === 0}
 		<div class="text-center py-8">
-			No data available
+			{searchTerm ? 'No matching results found' : 'No data available'}
 		</div>
 	{:else}
 		<div class="rounded-lg">
@@ -80,7 +86,7 @@
 						</tr>
 					</thead>
 					<tbody class="bg-transparent divide-y divide-black">
-						{#each data as item, index}
+						{#each filteredData as item, index}
 							<tr class="{index % 2 === 1 ? 'bg-yellow-100' : ''}" style="{index % 2 === 1 ? 'background-color: #fce18d;' : ''}">
 								<td class="px-1 py-2 text-sm">
 									{item.Headline}
