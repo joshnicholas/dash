@@ -10,7 +10,7 @@
 
 	const parseDate = timeParse('%Y_%m_%d_%H');
 	const formatTime = timeFormat('%-I%p');
-	const formatDateTime = timeFormat('%-I %p %d/%m/%Y');
+	const formatDateTime = timeFormat('%-I%p %d/%m/%Y');
 
 	let filteredData = $derived(fuzzySearch(data, searchTerm, 0.5, ['Headline', 'publication']));
 
@@ -36,9 +36,9 @@
 			fetchData();
 		}
 	});
-	$effect(() => {
-		console.log(header, data)
-	})
+	// $effect(() => {
+	// 	console.log(header, data)
+	// })
 </script>
 
 <div class="w-full" style="margin-bottom: 30px;">
@@ -52,7 +52,7 @@
 
 	{#if filteredData.length > 0}
 		<p class="text-xs">
-			Last scraped: {(() => {
+			Last scraped: ~{(() => {
 				const parsed = parseDate(data[0]?.scraped_datetime);
 				return parsed ? formatDateTime(parsed).toLowerCase() : '';
 			})()}

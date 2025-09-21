@@ -10,7 +10,8 @@
 
 	const parseDate = timeParse('%Y_%m_%d_%H');
 	const formatTime = timeFormat('%-I%p');
-	const formatDateTime = timeFormat('%-I %p %d/%m/%Y');
+	// const formatDateTime = timeFormat('%-I%p %d/%m/%Y');
+	const formatDateTime = timeFormat('%d/%m/%Y');
 
 	// Filter function to exclude items
 	function shouldExclude(item) {
@@ -50,6 +51,9 @@
 			fetchData();
 		}
 	});
+	// 	$effect(() => {
+	// 	console.log(header, data)
+	// })
 </script>
 
 <div class="w-full" style="margin-bottom: 30px;">
@@ -63,7 +67,7 @@
 
 	{#if filteredData.length > 0}
 		<p class="text-xs">
-			Last scraped: {(() => {
+			Updated: {(() => {
 				const parsed = parseDate(data[0]?.scraped_datetime);
 				return parsed ? formatDateTime(parsed).toLowerCase() : '';
 			})()}

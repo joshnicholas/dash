@@ -109,7 +109,7 @@
 	</div>
 
 	<footer class="text-center mt-8 py-4 text-gray-500 text-sm">
-		<p>Wikipedia updates daily, everything else runs about every hour during the day. All times are Brisbane time.</p>
+		<p>These are from the "most read" sections on websites. Wikipedia only updates once a day. Everything else runs about once an hour during the day. Occasionally a scraper will fail. All times are Brisbane time.</p>
 	</footer>
 </div>
 
