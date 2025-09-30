@@ -65,10 +65,10 @@
 			/>
 		</div>
 
-		<div id="newscom">
+		<div id="bbc">
 			<DataTable
-				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/newscom_top/latest.json"
-				header="News.com.au"
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/bbc_top/latest.json"
+				header="BBC"
 				{searchTerm}
 			/>
 		</div>
@@ -105,6 +105,13 @@
 			/>
 		</div>
 
+		<div id="newscom">
+			<DataTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/newscom_top/latest.json"
+				header="News.com.au"
+				{searchTerm}
+			/>
+		</div>
 
 	</div>
 
