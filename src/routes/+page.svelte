@@ -1,6 +1,7 @@
 <script>
 	import DataTable from '$lib/components/DataTable.svelte';
 	import WikiTable from '$lib/components/WikiTable.svelte';
+	import BskyTable from '$lib/components/BskyTable.svelte';
 	import SearchBar from '$lib/components/SearchBar.svelte';
 	import { onMount } from 'svelte';
 
@@ -109,6 +110,14 @@
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/newscom_top/latest.json"
 				header="News.com.au"
+				{searchTerm}
+			/>
+		</div>
+
+				<div id="bsky">
+			<BskyTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/bsky/latest.json"
+				header="Bluesky trends"
 				{searchTerm}
 			/>
 		</div>
