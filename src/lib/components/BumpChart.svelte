@@ -86,20 +86,16 @@
 			});
 		}
 
-		// Create lines for headlines that appear in multiple time periods
-		// OR are in the current top 10 (even if they only appear once)
+		// Create lines for all headlines (show all data points)
 		const lines = [];
 		for (const [headline, points] of headlineMap.entries()) {
-			const isCurrentTop10 = currentTop10Headlines.has(headline);
-			if (points.length > 1 || isCurrentTop10) {
-				// Sort points by time
-				points.sort((a, b) => a.time.localeCompare(b.time));
-				lines.push({
-					headline,
-					points,
-					url: points[points.length - 1].url // Use the latest URL
-				});
-			}
+			// Sort points by time
+			points.sort((a, b) => a.time.localeCompare(b.time));
+			lines.push({
+				headline,
+				points,
+				url: points[points.length - 1].url // Use the latest URL
+			});
 		}
 
 		// Sort lines by latest rank
