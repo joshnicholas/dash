@@ -350,7 +350,7 @@
 	{#if isTooNarrow}
 		<div class="p-8 text-center border border-black rounded bg-transparent">
 			<p class="font-bold text-lg mb-2">Wide screens only</p>
-			<p class="text-sm">This chart is only available on screens 800px or wider. You could try rotating your phone, but its better on a computer.</p>
+			<p class="text-sm">This chart is only available on screens 800px or wider. You could try rotating your phone, but it's better on a computer.</p>
 		</div>
 	{:else if loading}
 		<div class="flex justify-center items-center py-8">
