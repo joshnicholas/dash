@@ -3,18 +3,40 @@
 	import WikiTable from '$lib/components/WikiTable.svelte';
 	import BskyTable from '$lib/components/BskyTable.svelte';
 	import SearchBar from '$lib/components/SearchBar.svelte';
+	import BumpChart from '$lib/components/BumpChart.svelte';
 	import { onMount } from 'svelte';
 
 	let backToTopVisible = false;
 	let searchTerm = $state('');
+	let bumpChartContainer;
+	let bumpChartWidth = $state(800);
 
 	onMount(() => {
 		const handleScroll = () => {
 			backToTopVisible = window.scrollY > 300;
 		};
 
+		const updateWidth = () => {
+			if (bumpChartContainer) {
+				bumpChartWidth = bumpChartContainer.clientWidth;
+			}
+		};
+
+		// Initial width
+		updateWidth();
+
+		// Update on resize
+		const resizeObserver = new ResizeObserver(updateWidth);
+		if (bumpChartContainer) {
+			resizeObserver.observe(bumpChartContainer);
+		}
+
 		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			resizeObserver.disconnect();
+		};
 	});
 
 	function scrollToTop() {
@@ -35,6 +57,8 @@
 			<a href="#brisbane" class="font-bold">Brisbane Times</a>
 			<a href="#smh" class="font-bold">SMH</a>
 			<a href="#guardian" class="font-bold">Graun</a>
+			<a href="#bsky" class="font-bold">Bluesky trends</a>
+			<a href="#guardian-bump" class="font-bold">Bump Chart</a>
 		</div>
 	</nav>
 
@@ -124,8 +148,18 @@
 
 	</div>
 
+	<div id="guardian-bump" class="mt-8" bind:this={bumpChartContainer}>
+		<BumpChart
+			url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Combined/graun.json"
+			header="Most read over the past two days"
+			standfirst=""
+			containerWidth={bumpChartWidth}
+			backgroundColor="#ffd861"
+		/>
+	</div>
+
 	<footer class="text-center mt-8 py-4 text-gray-500 text-sm">
-		<p>These are from the "most read" sections on websites. Wikipedia only updates once a day. Everything else runs about once an hour during the day. Occasionally a scraper will fail. All times are Brisbane time.</p>
+		<p>These are from the "most read" sections on websites. Wikipedia only updates once a day. Everything else runs about once an hour during the day. Occasionally a scraper will fail. All times are Melbourne time.</p>
 	</footer>
 </div>
 

@@ -1,16 +1,12 @@
 <script>
-	import { timeParse, timeFormat } from 'd3-time-format';
 	import { fuzzySearch } from '$lib/utils/search.js';
+	import { formatMelbourneDateTime } from '$lib/utils/datetime.js';
 
 	let { url, header, standfirst, rowLimit = 5, showPub = false, exclude = [], searchTerm = '' } = $props();
 
 	let data = $state([]);
 	let loading = $state(true);
 	let error = $state(null);
-
-	const parseDate = timeParse('%Y_%m_%d_%H');
-	const formatTime = timeFormat('%-I%p');
-	const formatDateTime = timeFormat('%-I%p %d/%m/%Y');
 
 	// Filter function to exclude items
 	function shouldExclude(item) {
@@ -59,10 +55,7 @@
 
 	{#if filteredData.length > 0}
 		<p class="text-xs">
-			Last scraped: ~{(() => {
-				const parsed = parseDate(data[0]?.scraped_datetime);
-				return parsed ? formatDateTime(parsed).toLowerCase() : '';
-			})()}
+			Last scraped: ~{formatMelbourneDateTime(data[0]?.scraped_datetime)}
 		</p>
 	{/if}
 
