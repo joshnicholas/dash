@@ -5,6 +5,7 @@
 	import SearchBar from '$lib/components/SearchBar.svelte';
 	import BumpChart from '$lib/components/BumpChart.svelte';
 	import WikiEditsTable from '$lib/components/WikiEditsTable.svelte';
+	import GoogleTrendsTable from '$lib/components/GoogleTrendsTable.svelte';
 	import { onMount } from 'svelte';
 
 	let backToTopVisible = false;
@@ -51,6 +52,7 @@
 	<nav class="text-center mb-8">
 		<div class="flex flex-wrap justify-center gap-4">
 			<a href="#google" class="font-bold">Google News</a>
+			<a href="#google-trends" class="font-bold">Google Trends</a>
 			<a href="#wikipedia" class="font-bold">Wikipedia</a>
 			<a href="#abc" class="font-bold">ABC News</a>
 			<a href="#newscom" class="font-bold">News.com.au</a>
@@ -75,10 +77,18 @@
 			/>
 		</div>
 
+		<div id="google-trends">
+			<GoogleTrendsTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/google_trends_rss/latest.json"
+				header="Google Trends"
+				{searchTerm}
+			/>
+		</div>
+
 		<div id="wikipedia">
 			<WikiTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/wiki/latest.json"
-				header="Wikipedia"
+				header="Wikipedia views"
 				exclude={["Main_Page", "Special:Search"]}
 				{searchTerm}
 			/>
@@ -86,7 +96,7 @@
 				<div id="wiki-edits">
 			<WikiEditsTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/wiki_edits/latest.json"
-				header="Wikipedia most edited"
+				header="Wikipedia edits"
 				standfirst="7 day rolling, most edited wiki pages."
 				exclude={["Main_Page", "Special:Search"]}
 				{searchTerm}
