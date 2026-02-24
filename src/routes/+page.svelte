@@ -4,6 +4,7 @@
 	import BskyTable from '$lib/components/BskyTable.svelte';
 	import SearchBar from '$lib/components/SearchBar.svelte';
 	import BumpChart from '$lib/components/BumpChart.svelte';
+	import WikiEditsTable from '$lib/components/WikiEditsTable.svelte';
 	import { onMount } from 'svelte';
 
 	let backToTopVisible = false;
@@ -57,6 +58,7 @@
 			<a href="#brisbane" class="font-bold">Brisbane Times</a>
 			<a href="#smh" class="font-bold">SMH</a>
 			<a href="#guardian" class="font-bold">Graun</a>
+			<a href="#wiki-edits" class="font-bold">Wikipedia edits</a>
 			<a href="#bsky" class="font-bold">Bluesky trends</a>
 			<a href="#guardian-bump" class="font-bold">Bump Chart</a>
 		</div>
@@ -81,7 +83,15 @@
 				{searchTerm}
 			/>
 		</div>
-
+				<div id="wiki-edits">
+			<WikiEditsTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/wiki_edits/latest.json"
+				header="Wikipedia most edited"
+				standfirst="7 day rolling, most edited wiki pages."
+				exclude={["Main_Page", "Special:Search"]}
+				{searchTerm}
+			/>
+		</div>
 		<div id="abc">
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/abc_top/latest.json"
@@ -130,6 +140,13 @@
 			/>
 		</div>
 
+		<div id="bsky">
+			<BskyTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/bsky/latest.json"
+				header="Bluesky trends"
+				{searchTerm}
+			/>
+		</div>
 		<div id="newscom">
 			<DataTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/newscom_top/latest.json"
@@ -138,13 +155,23 @@
 			/>
 		</div>
 
-				<div id="bsky">
+				<!-- <div id="wiki-edits">
+			<WikiEditsTable
+				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/wiki_edits/latest.json"
+				header="Wikipedia most edited"
+				standfirst="7 day rolling, most edited wiki pages"
+				exclude={["Main_Page", "Special:Search"]}
+				{searchTerm}
+			/>
+		</div> -->
+<!-- 
+		<div id="bsky">
 			<BskyTable
 				url="https://raw.githubusercontent.com/joshnicholas/Archives/refs/heads/main/Archive/bsky/latest.json"
 				header="Bluesky trends"
 				{searchTerm}
 			/>
-		</div>
+		</div> -->
 
 	</div>
 
